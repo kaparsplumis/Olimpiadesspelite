@@ -6,8 +6,16 @@ import time
 #FUNKCIJAS*********************************************************************************************
 
 def noteikumi():
-  print('Spēles noteikumi:\n\t* Spēlē norisinās brauciens ar elektroauto no Valmieras Valsts ģimnāzijas līdz Liepājas karostai.\n\t* Brauciena laikā tev ir obligāti jāapmeklē visi 10 kontrolpunkti ieskaitot sākumpunktu un galapunktu.\n\t* Elektroauto labos apstākļos var nobraukt 140 km, bet sliktos - 80km\n\t* Ievēro to, ka laikapstākļi var mainīties pēc katra brauciena, ko spēle tev paziņos.\n\t* Lai varētu veiksmīgi pabeigt braucienu, tu vari apmeklēt kādu no uzlādes stacijām.\n\t* Spēles laikā tev arī būs jākrāj punkti. Sākot braucienu, tev būs 100 punkti.\n\t* Kad būsi sasniedzis kontrolpunktu vai pirmo reizi apmeklējis kādu uzlādes staciju, tevi sagaidīs jautājums ar 3 atbildes iespējām. Lai varētu braukt tālāk, tev būs pareizi jāatbild uz šo jautājumu. Ja atbildēsi uz jautājumu ar 1. mēģinājumu, iegūsi 20 punktus, bet par katru nepareizu atbildi iespējamais punktu skaits samazināsies par 10 punktiem.\n\t* Ja nebūsi pareizi aprēķinājis brauciena attālumu, un tavs auto izlādēsies, tad tev par 20 punktiem būs jāizsauc evakuātors, kurš tevi aizvedīs uz jebkuru uzlādes staciju, kuru vēlēsies.\n\t* Par 5 punktiem vari mazliet pagaidīt, lai redzētu vai varbūt mainīsies laikapstākļi.\n\t* Spēli uzvarēsi, kad būsi veiksmīgi izpildījis Liepājas karostas uzdevumu. Ievēro, ka karostas kontrolpunktu var apmeklēt tikai kā pēdējo.\n\t* Ja aizmirsti spēles noteikumus, ieraksti jebkurā ievades lodziņā precīzi "/h".')
+  print('Spēles noteikumi:\n\t* Spēlē norisinās ceļojums ar elektroauto no Valmieras Valsts ģimnāzijas līdz Liepājas karostai.\n\t* Brauciena laikā tev ir obligāti jāapmeklē 10 kontrolpunkti ieskaitot sākumpunktu un galapunktu.\n\t* Attālumus starp punktiem varēsi trast tabulā, kuru redzēsi katru reizi, kad vajadzēs izvēlēties nākamo galapunktu. \n\t* Elektroauto labos apstākļos var nobraukt 140 km, bet sliktos - 80km.\n\t* Ievēro to, ka laikapstākļi var mainīties pēc katra brauciena, ko spēle tev paziņos.\n\t* Lai varētu veiksmīgi pabeigt ceļojumu, tu vari apmeklēt kādu no uzlādes stacijām, un uzlādēt savu auto par 5 punktiem.\n\t* Spēles laikā tev arī būs jākrāj punkti. Sākot braucienu, tev būs 100 punkti.\n\t* Kad būsi sasniedzis kontrolpunktu vai pirmo reizi apmeklējis kādu uzlādes staciju, tevi sagaidīs jautājums ar 3 atbildes iespējām. Lai varētu braukt tālāk, tev būs pareizi jāatbild uz šo jautājumu. Ja atbildēsi uz jautājumu ar 1. mēģinājumu, iegūsi 20 punktus, bet par katru nepareizu atbildi iespējamais punktu skaits samazināsies par 10 punktiem.\n\t* Ja nebūsi pareizi aprēķinājis brauciena attālumu, un tavs auto izlādēsies, tad tev par 20 punktiem būs jāizsauc evakuātors, kurš tevi aizvedīs uz jebkuru uzlādes staciju, kuru vēlēsies.\n\t* Par 5 punktiem vari mazliet pagaidīt, lai redzētu vai varbūt mainīsies laikapstākļi.\n\t* Spēli uzvarēsi, kad būsi veiksmīgi izpildījis Liepājas karostas uzdevumu. Ievēro, ka karostas kontrolpunktu var apmeklēt tikai kā pēdējo.\n\t* Spēli zaudēsi, ja tavs punktu skaits sasniegs 0.\n\t* Ja aizmirsti spēles noteikumus, ieraksti jebkurā spēles ievades lodziņā precīzi "/h".')
   
+
+def saraksts_uz_str(l):
+  str1 = ''
+  for i in l:
+    str1 = str1 + i+ ' '
+  return str1
+  
+
 
 def clearConsole():
   # notīra konsoli
@@ -106,7 +114,7 @@ def labs_laiks():
     return True
 
 def tabula(lasitajs):
-  # printē tabulu
+  fails_a.seek(0)
   print('{0:^4} | {1:^4} | {2:^4} | {3:^4} | {4:^4} | {5:^4} | {6:^4} | {7:^4} | {8:^4} | {9:^4} | {10:^4} | {11:^4} | {12:^4} | {13:^4} | {14:^4} | {15:^4} | {16:^4} | {17:^4} | {18:^4} | {19:^4} | {20:^4}'.format('','U1','U2','U3','U4','U5','U6','U7','U8','U9','U10','K1','K2','K3','K4','K5','K6','K7','K8','K9','K10'))
   for i in lasitajs:
     if i['punkts'] == 'punkts':
@@ -198,7 +206,7 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
   uzl_lim = 100
   iesp_att = 0
   ieprieks_uzl_lim = 0
-  punkti = 10
+  punkti = 100
   labs_laiksa = True
   jautajums = ''
   pa = ''
@@ -256,7 +264,8 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
     fails_a.seek(0)
     tabula(a_lasitajs)
     print(f'Tu pašlaik atrodies punktā {pasreizeja_vieta}, jeb {pasr}, tavs punktu skaits ir {punkti}')
-    print(f'Mašīnas uzlādes līmenis ir {round(uzl_lim)}% un labā laikā tā var nobraukt {uzl_lim/100*140} km.')
+    print(f'Mašīnas uzlādes līmenis ir {round(uzl_lim)}% un labā laikā tā var nobraukt {round(uzl_lim/100*140,3)} km, bet sliktā - {round(uzl_lim/100*80,3)} km.')
+    print(f'Tu jau esi apmeklējis kontrolpunktus: {saraksts_uz_str(apmekletie_kontrolpunkti)}')
 
     if mainit_laiku:
       labs_laiksa = labs_laiks()
@@ -339,7 +348,7 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
         break
       
       punkti -= 10
-      
+      tabula(a_lasitajs)
       while True:
         a = next_p(apmekletie_kontrolpunkti,'uzlādes staciju','')
         if a[0] in ['K','k']:
@@ -347,11 +356,12 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
         elif a[0] in ['p','P']:
 
           turpinat = parbauda_zaudejumu(punkti,5)
+          
           if not turpinat:
             break
-            
-          punkti -= 5
           
+          punkti -= 5
+
         else:
           break
       clearConsole()
@@ -376,37 +386,23 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
       pasr = next
   
   # ja galapunkts ir uzlādes stacija
-    
+
     if pasr[0] in ['U','u']:
       uzlades_stacijas += 1
-      
-      while True:
-        uzpilde = input('Vai vēlies uzsākt uzpildi? (j vai n)')
-        if uzpilde not in ['J','j','N','n','/h']:
-          print('Piedod, es nesaprotu.')
-        else:
-          if uzpilde in ['J','j']:
-            break
-          elif uzpilde in ['N','n']:
-            continue
-          elif uzpilde == '/h':
-            noteikumi()
-            
-      clearConsole()
-      
-      print('Esi veiksmīgi uzpildījis auto')
-      uzl_lim = 100
 
       if pasr not in uzlades_stacijas_l:
 
-        print('Lai brauktu tālāk, tev pareizi jāatbild uz jautājumu. Maksimālais iegūstamo punktu skaits ir 20, bet par katru nepareizu atbildi tas samazinās par 10 punktiem.')
+        print('Lai sāktu uzpildi, tev pareizi jāatbild uz jautājumu. Maksimālais iegūstamo punktu skaits ir 20, bet par katru nepareizu atbildi tas samazinās par 10 punktiem.')
+      
         jautajums,pa,na1,na2 = izvelas_jautajumu(pasr,j_lasitajs,jaunie,fails_j)
-            
+        
         print(jautajums)
         pa,na1,na2 = atbildes(pa,na1,na2)
+
+        iesp_punkti = 20
         
         while True:
-          iesp_punkti = 20
+          
           atbilde = input('Ievadi atbildes burtu: ')
           if atbilde not in ['A','B','C','c','b','a','/h']:
             print('Tādas atbildes nav')
@@ -423,7 +419,32 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
                 iesp_punkti -= 10
 
         uzlades_stacijas_l.append(pasr)
+      
+      while True:
+        uzpilde = input('Vai vēlies uzsākt uzpildi par 5 punktiem? (j vai n)')
+        if uzpilde not in ['J','j','N','n','/h']:
+          print('Piedod, es nesaprotu.')
+        else:
+          if uzpilde in ['J','j']:
+            break
+          elif uzpilde in ['N','n']:
+            continue
+          elif uzpilde == '/h':
+            noteikumi()
+
+      if uzpilde in ['J','j']:
+        turpinat = parbauda_zaudejumu(punkti,5)
         
+        if not turpinat:
+          break
+            
+        punkti -= 5
+            
+      clearConsole()
+      
+      print('Esi veiksmīgi uzpildījis auto')
+      uzl_lim = 100
+     
   # ja galapunkts ir kontrolpunkts
     
     if pasr[0] in ['K','k']:
@@ -565,7 +586,8 @@ game_on = False
 
 clearConsole()
 
-print('Sveicināti spēlē!')
+print('Sveicināti spēlē "Tūrisma rallijs Liepāja 2022"')
+print('Spēles autori: Liepājas atklātās programmēšanas olimpiādes 2022 komandas "Chipots Dizelis" biedri - Kaspars Jānis Plūme, Ralfs Imants Unāms, Rainers Zviedris')
 noteikumi()
 while not game_on:
   sakt = input('Nospied enter, lai sāktu spēli: ')
