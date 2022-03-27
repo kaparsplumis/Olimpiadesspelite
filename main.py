@@ -630,9 +630,16 @@ while game_on:
           naj2 = input()
 
           while True:
-            apstiprina = input('Vai esi apmierināts ar ievadītajiem jautājumiem? Ja nospiedīsi "n", tev būs iespēja nomainīt jautāumu.')
-          jaunie_j_rakstitajs.writerow({'punkts':'K'+str(k),'jautājums1':jaun_jautajums,'P1A':paj,'1B':naj1,'1C':naj2})
-          k += 1
+            print('Vai esi apmierināts ar ievadīto jautājumu un atbilžu variantiem? Ja nospiedīsi "n", tev būs iespēja nomainīt jautāumu.')
+            apstiprinak = input('(j vai n): ')
+            if apstiprinak in ['J','j']:  
+              jaunie_j_rakstitajs.writerow({'punkts':'K'+str(k),'jautājums1':jaun_jautajums,'P1A':paj,'1B':naj1,'1C':naj2})
+              k += 1
+              break
+            elif apstiprinak in ['N','n']:
+              break
+            else:
+              print('Piedod, es nesaprotu.')
 
         while u <= 10:
           print(f'Ievadi jautājumu punktam U{u}: ')
@@ -643,9 +650,18 @@ while game_on:
           naj1_u = input()
           print('Ievadi nākamo, nepareizo atbildi: ')
           naj2_u = input()
-          jaunie_j_rakstitajs.writerow({'punkts':'U'+str(u),'jautājums1':jaun_jautajums_u,'P1A':paj_u,'1B':naj1_u,'1C':naj2_u})
 
-          u += 1
+          while True:
+            print('Vai esi apmierināts ar ievadīto jautājumu un atbilžu variantiem? Ja nospiedīsi "n", tev būs iespēja nomainīt jautāumu.')
+            apstiprinau = input('(j vai n): ')
+            if apstiprinau in ['J','j']:
+              jaunie_j_rakstitajs.writerow({'punkts':'U'+str(u),'jautājums1':jaun_jautajums_u,'P1A':paj_u,'1B':naj1_u,'1C':naj2_u})
+              u += 1
+              break
+            elif apstiprinau in ['N','n']:
+              break
+            else:
+              print('Piedod, es nesaprotu.')
           
         fails_jaunie_j_r.close()
         break
