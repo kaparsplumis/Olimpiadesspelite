@@ -228,9 +228,11 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
       
   print(jautajums)
   pa,na1,na2 = atbildes(pa,na1,na2)
+
+  iesp_punkti = 20
   
   while True:
-    iesp_punkti = 20
+    
     atbilde = input('Ievadi atbildes burtu: ')
     if atbilde not in ['A','B','C','c','b','a','/h']:
       print('Tādas atbildes nav')
