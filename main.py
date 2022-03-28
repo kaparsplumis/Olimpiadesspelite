@@ -415,7 +415,7 @@ def spele(j_lasitajs,jaunie,vardu_saraksts,fails_j):
         uzlades_stacijas_l.append(pasr)
       
       while True:
-        uzpilde = input('Vai vēlies uzsākt uzpildi par 5 punktiem? (j vai n)')
+        uzpilde = input('Vai vēlies uzsākt uzpildi par 5 punktiem? (j vai n): ')
         if uzpilde not in ['J','j','N','n','/h']:
           print('Piedod, es nesaprotu.')
         else:
